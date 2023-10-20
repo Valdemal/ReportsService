@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: project-postgres
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file: .env
+    expose:
+      - 5432
+
+  django:
+    container_name: project-django
+    build: ./backend
+    command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./backend:/usr/src/backend
+      - static:/usr/src/static
+      - media:/usr/src/media
+      - logs:/usr/src/logs
+    expose:
+      - 8000
+    env_file: .env
+    depends_on:
+      - postgres
+
+  nginx:
+    container_name: project-nginx
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static:/usr/src/static
+      - media:/usr/src/media
+    depends_on:
+      - django
+
+volumes:
+  postgres_data:
+  static:
+  media:
+  logs:

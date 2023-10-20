@@ -1,0 +1,12 @@
+Django==4.2.6
+djangorestframework==3.14.0
+Pillow==10.1.0
+django-cors-headers==4.3.0
+djoser==2.2.0
+psycopg2==2.9.9
+drf-spectacular==0.26.5
+drf-spectacular[sidecar]
+python-dotenv==1.0.0
+gunicorn==21.2.0
+python-json-logger==2.0.7
+pytest-django==4.5.2
