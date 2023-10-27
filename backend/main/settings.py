@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'drf_spectacular_sidecar',
 
     # Внутренние приложения
+    'api_v1',
 ]
 
 MIDDLEWARE = [
@@ -150,8 +151,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # drf-spectacular
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Project API',
-    'VERSION': '1.0.0',
+    'TITLE': 'Reports Service API',
     'SERVE_INCLUDE_SCHEMA': False,
     'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
