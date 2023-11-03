@@ -2,7 +2,10 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
 
+from api_v1.views import ReportViewSet
+
 router = DefaultRouter()
+router.register(r'reports', ReportViewSet, 'reports')
 
 urlpatterns = [
     path('', include(router.urls), name='api_v1'),

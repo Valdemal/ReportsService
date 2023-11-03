@@ -11,6 +11,10 @@ import os
 
 from django.core.asgi import get_asgi_application
 
+from reports.fonts import load_fonts
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main.settings')
+
+load_fonts()
 
 application = get_asgi_application()

@@ -11,4 +11,5 @@ gunicorn==21.2.0
 python-json-logger==2.0.7
 pytest-django==4.5.2
 pdfrw~=0.4
-reportlab==4.0.6
+trml2pdf==0.6
+drf-pdf==0.2.0

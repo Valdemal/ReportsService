@@ -16,7 +16,7 @@ services:
     command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./backend:/usr/src/backend
-      - static:/usr/src/static
+      - ./static:/usr/src/static
       - media:/usr/src/media
       - logs:/usr/src/logs
     expose:

@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    'drf_pdf',
 
     # Внутренние приложения
     'api_v1',
+    'reports',
 ]
 
 MIDDLEWARE = [

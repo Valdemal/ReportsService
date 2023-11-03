@@ -9,10 +9,10 @@ class IsStaffOrReadOnly(BasePermission):
         return bool(request.user and request.user.is_staff)
 
 
-class IsAuthorOrStaff(BasePermission):
+class IsOwnerOrStaff(BasePermission):
     """
-    Если пользователь является автором или персоналом, то он имеет право совершать любые действия с объектом.
+    Если пользователь является владельцем или персоналом, то он имеет право совершать любые действия с объектом.
     """
 
     def has_object_permission(self, request, view, obj):
-        return bool(request.user) and (obj.user == request.user or request.user.is_staff)
+        return bool(request.user) and (obj.owner == request.user or request.user.is_staff)
