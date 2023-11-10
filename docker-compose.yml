@@ -25,6 +25,15 @@ services:
     depends_on:
       - postgres
 
+  vue:
+    container_name: online-library-vue
+    build: ./frontend
+    volumes:
+      - frontend:/usr/src/frontend
+    env_file: .env
+    depends_on:
+      - django
+
   nginx:
     container_name: reports-nginx
     build: ./nginx
@@ -33,11 +42,14 @@ services:
     volumes:
       - static:/usr/src/static
       - media:/usr/src/media
+      - frontend:/usr/src/frontend
     depends_on:
       - django
+      - vue
 
 volumes:
   postgres_data:
   static:
   media:
   logs:
+  frontend:

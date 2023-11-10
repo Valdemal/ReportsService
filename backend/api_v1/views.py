@@ -19,7 +19,6 @@ from api_v1.serializers import ReportSerializer, ReportPrintSerializer
 
 class ReportViewSet(ModelViewSet):
     queryset = Report.objects.all()
-    permission_classes = IsAuthenticated,
     serializer_class = ReportSerializer
 
     def get_renderers(self):
