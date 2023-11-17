@@ -7,20 +7,43 @@ export default defineComponent({
     modelValue: {
       required: true,
     },
+    placeholder: {
+      required: false,
+    },
   },
+  mounted() {
+    this.resizeTextArea(this.$refs.textarea);
+  },
+  methods: {
+    resizeTextArea(textArea: any) {
+      textArea.style.height = "auto";
+      const scHeight = textArea.scrollHeight;
+      textArea.style.height = `${scHeight}px`;
+    },
+  },
+  emits: ["update:modelValue"],
 });
 </script>
 
-<template>Напишу что-нибудь</template>
+<template>
+  <textarea
+    class="form-control"
+    ref="textarea"
+    @placeholder="this.placeholder ? this.placeholder : 'Введите текст'"
+    @keyup="resizeTextArea($event.target)"
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
+  ></textarea>
+</template>
 
 <style scoped>
-.resizable-textarea {
+textarea {
   overflow: hidden;
   outline: none;
   resize: none;
 }
 
-.resizable-textarea::-webkit-scrollbar(:focus, :valid) {
+textarea::-webkit-scrollbar(:focus, :valid) {
   width: 0;
 }
 </style>
