@@ -17,6 +17,12 @@ export default createStore<State>({
       const data = await SERVICE.detail(id);
       context.commit("updateReport", data);
     },
+    async saveReportOnServer(context) {
+      if (context.state.report) {
+        const newReport = await SERVICE.update(context.state.report);
+        context.commit("updateReport", newReport);
+      }
+    },
   },
   mutations: {
     updateReport(state, report: Report) {

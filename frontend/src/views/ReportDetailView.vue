@@ -32,9 +32,17 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions(["fetchReport"]),
-    print() {
+    ...mapActions(["fetchReport", "saveReportOnServer"]),
+    printReport() {
       console.log(this.report);
+    },
+    async saveReport() {
+      try {
+        await this.saveReportOnServer();
+        this.initialReport = this.report.clone();
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
   computed: {
@@ -54,10 +62,15 @@ export default defineComponent({
     <div class="row mt-2">
       <div class="report-header">
         <ReportTitle />
-        <button type="button" class="btn btn-warning m-2" @click="print">
+        <button type="button" class="btn btn-warning m-2" @click="printReport">
           Предпросмотр
         </button>
-        <button v-if="reportChanged" type="button" class="btn btn-primary m-2">
+        <button
+          v-if="reportChanged"
+          type="button"
+          class="btn btn-primary m-2"
+          @click="saveReport"
+        >
           <img
             src="../assets/diskette-svgrepo-com.svg"
             width="35"

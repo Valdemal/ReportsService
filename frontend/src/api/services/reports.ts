@@ -17,4 +17,18 @@ export class ReportsService extends Service {
     const response = await Service.API.get(`${this.baseUrl}${id}/`);
     return new Report(response.data);
   }
+
+  public async update(report: Report) {
+    const response = await Service.API.put(`${this.baseUrl}${report.id}/`, {
+      name: report.name,
+      description: report.description,
+      template: report.template,
+    });
+    return new Report(response.data);
+  }
+
+  public async create(data: { name: string; description: string }) {
+    const response = await Service.API.post(this.baseUrl, data);
+    return new Report(response.data);
+  }
 }
