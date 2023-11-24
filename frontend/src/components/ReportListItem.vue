@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Report } from "@/api/schemas";
+import { ReportsService } from "@/api/services/reports";
 
 export default defineComponent({
   name: "ReportListItem",
@@ -8,6 +9,17 @@ export default defineComponent({
     report: {
       type: Report,
       required: true,
+    },
+  },
+  methods: {
+    async removeReport() {
+      try {
+        const service = new ReportsService();
+        await service.remove(this.report);
+        this.$emit("removeReportFromList", this.report);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 });
@@ -22,7 +34,7 @@ export default defineComponent({
           :to="{ name: 'report-detail', params: { pk: this.report.id } }"
           >{{ report.name }}
         </router-link>
-        <button type="button" class="btn-close"></button>
+        <button type="button" class="btn-close" @click="removeReport"></button>
       </div>
       <div class="card-body">
         <p class="card-text">

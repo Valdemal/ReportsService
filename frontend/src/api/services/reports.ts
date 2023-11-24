@@ -31,4 +31,8 @@ export class ReportsService extends Service {
     const response = await Service.API.post(this.baseUrl, data);
     return new Report(response.data);
   }
+
+  public async remove(report: Report) {
+    await Service.API.delete(`${this.baseUrl}${report.id}/`);
+  }
 }

@@ -16,6 +16,7 @@
       v-for="report in reports"
       :key="report.id"
       :report="report"
+      @removeReportFromList="removeReportFromList"
     />
   </div>
   <CreateReportModal id="createReportModal" />
@@ -45,6 +46,12 @@ export default defineComponent({
     } catch (error) {
       console.log(error);
     }
+  },
+  methods: {
+    removeReportFromList(report: Report) {
+      const index = this.reports.indexOf(report);
+      this.reports.splice(index, 1);
+    },
   },
 });
 </script>
