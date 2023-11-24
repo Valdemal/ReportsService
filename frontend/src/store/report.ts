@@ -18,6 +18,7 @@ export default createStore<State>({
     async fetchReport(context, id: number) {
       const data = await SERVICE.detail(id);
       context.commit("updateReport", data);
+      context.commit("updatePdf", null);
     },
     async saveReportOnServer(context) {
       if (context.state.report) {
@@ -25,11 +26,20 @@ export default createStore<State>({
         context.commit("updateReport", newReport);
       }
     },
+    async printReportOnServer(context) {
+      if (context.state.report){
+        const pdf: string = await SERVICE.print(context.state.report)
+        context.commit("updatePdf", `data:application/pdf;base64,${pdf}`)
+      }
+    }
   },
   mutations: {
     updateReport(state, report: Report) {
       state.report = report;
     },
+    updatePdf(state, pdf: string) {
+      state.pdf = pdf
+    }
   },
   getters: {
     report(state) {

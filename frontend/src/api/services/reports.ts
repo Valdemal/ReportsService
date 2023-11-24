@@ -22,7 +22,7 @@ export class ReportsService extends Service {
     const response = await Service.API.put(`${this.baseUrl}${report.id}/`, {
       name: report.name,
       description: report.description,
-      template: report.template,
+      template: report.template
     });
     return new Report(response.data);
   }
@@ -34,5 +34,14 @@ export class ReportsService extends Service {
 
   public async remove(report: Report) {
     await Service.API.delete(`${this.baseUrl}${report.id}/`);
+  }
+
+  public async print(report: Report) {
+    const response = await Service.API.post(
+      `${this.baseUrl}${report.id}/print/?format=json`,
+      {
+        data: {}
+      });
+    return response.data.pdf;
   }
 }

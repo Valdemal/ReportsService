@@ -32,9 +32,13 @@ export default defineComponent({
     }
   },
   methods: {
-    ...mapActions(["fetchReport", "saveReportOnServer"]),
-    printReport() {
-      console.log(this.report);
+    ...mapActions(["fetchReport", "saveReportOnServer", "printReportOnServer"]),
+    async printReport() {
+      try {
+        await this.printReportOnServer();
+      } catch (e) {
+        console.log(e)
+      }
     },
     async saveReport() {
       try {
