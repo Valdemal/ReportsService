@@ -4,6 +4,7 @@ import { ReportsService } from "@/api/services/reports";
 
 interface State {
   report: Report | null;
+  pdf: string | null;
 }
 
 const SERVICE = new ReportsService();
@@ -11,6 +12,7 @@ const SERVICE = new ReportsService();
 export default createStore<State>({
   state: {
     report: null,
+    pdf: null,
   },
   actions: {
     async fetchReport(context, id: number) {
@@ -32,6 +34,11 @@ export default createStore<State>({
   getters: {
     report(state) {
       return state.report;
+    },
+    pdf(state): string {
+      return state.pdf
+        ? state.pdf
+        : "https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf";
     },
   },
 });
