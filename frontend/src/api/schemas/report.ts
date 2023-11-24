@@ -12,6 +12,7 @@ export class Report implements Schema {
     this._description = json.description;
     this._template = json.template;
   }
+
   get id(): number {
     return this._id;
   }
@@ -19,6 +20,7 @@ export class Report implements Schema {
   get template(): string {
     return this._template;
   }
+
   set template(value: string) {
     this._template = value;
   }
@@ -26,6 +28,7 @@ export class Report implements Schema {
   get description(): string | null {
     return this._description;
   }
+
   set description(value: string | null) {
     this._description = value;
   }
@@ -33,6 +36,7 @@ export class Report implements Schema {
   get name(): string {
     return this._name;
   }
+
   set name(value: string) {
     this._name = value;
   }
