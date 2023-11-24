@@ -1,13 +1,12 @@
+import base64
+
 import trml2pdf
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
 from drf_pdf.renderer import PDFRenderer
 from drf_pdf.response import PDFResponse
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
-
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -29,7 +28,6 @@ class ReportViewSet(ModelViewSet):
 
     @extend_schema(
         request=ReportPrintSerializer,
-
     )
     @action(methods=['POST'], detail=True)
     def print(self, request: Request, pk: int):
@@ -37,6 +35,9 @@ class ReportViewSet(ModelViewSet):
             report = Report.objects.get(pk=pk)
             pdf: bytes = trml2pdf.parseString(report.template)
 
-            return PDFResponse(pdf=pdf, file_name=report.name)
+            if request.query_params.get('format') == 'json':
+                return Response({'pdf': base64.b64encode(pdf)})
+            else:
+                return PDFResponse(pdf=pdf, file_name=report.name)
         except ObjectDoesNotExist:
             return Response(data={'detail': 'Отчет не найден'}, status=status.HTTP_404_NOT_FOUND)
