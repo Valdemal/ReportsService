@@ -26,7 +26,7 @@ services:
       - postgres
 
   vue:
-    container_name: online-library-vue
+    container_name: reports-vue
     build: ./frontend
     volumes:
       - frontend:/usr/src/frontend
